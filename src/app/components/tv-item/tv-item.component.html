@@ -1,0 +1,15 @@
+<ng-container *ngIf='itemData'>
+    <a class="item" [routerLink]="'/tv/' + itemData.id">
+      <div class="item-rating">
+        <i class="app-icon">star</i>
+        <span>{{itemData.vote_average}}</span
+        >/10
+      </div>
+      <div class="item-image">
+        <img *ngIf="itemData.backdrop_path" [src]="'https://image.tmdb.org/t/p/original/' + itemData.backdrop_path" />
+        <img *ngIf="itemData.backdrop_path == null && itemData.poster_path != null" [src]="'https://image.tmdb.org/t/p/original/' + itemData.poster_path" />
+        <img *ngIf="itemData.backdrop_path == null && itemData.poster_path == null" src="assets/images/1.jpg" />
+      </div>
+      <div class="item-title">{{itemData?.title}}{{itemData?.name}}</div>
+    </a>
+</ng-container>

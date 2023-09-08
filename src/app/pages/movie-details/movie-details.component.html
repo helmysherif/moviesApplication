@@ -1,0 +1,97 @@
+<ng-container *ngIf="itemData">
+  <div style = 'margin-top:-18px;'>
+    <app-slider [Items]='[itemData]' [isBanner]="true"></app-slider>
+  </div>
+  <p-tabView>
+    <p-tabPanel header="Overview">
+      <div class="grid">
+        <div class="col-12 md:col-3 lg:col-3">
+          <img *ngIf="itemData.backdrop_path" [src]="imgSrc + itemData.backdrop_path" />
+          <img *ngIf="itemData.backdrop_path == null" [src]="imgSrc + itemData.poster_path" />
+        </div>
+        <div class="col-12 md:col-9 lg:col-9">
+          <h2>Overview</h2>
+          <p class = 'overview'>{{itemData.overview}}</p>
+          <div class="stat">
+            <div class="label">Release Date :</div>
+            <div class="value">{{itemData.release_date | date : 'dd-MM-yyyy'}}</div>
+            <div class="value">{{itemData.first_air_date | date : 'dd-MM-yyyy'}}</div>
+          </div>
+          <div class="stat">
+            <div class="label">Language :</div>
+            <div class="value">{{itemData.original_language | uppercase}}</div>
+          </div>
+          <div class="stat">
+            <div class="label">Revenue :</div>
+            <div class="value" *ngIf="itemData.revenue">{{itemData.revenue | currency}}</div>
+            <div class="value" *ngIf="!itemData.revenue">{{0 | currency}}</div>
+          </div>
+          <div class="stat">
+            <div class="label">Duration :</div>
+            <div class="value" *ngIf="itemData.runtime">{{itemData.runtime}} mins</div>
+            <div class="value" *ngIf="itemData.episode_run_time">{{itemData.episode_run_time}} mins</div>
+          </div>
+          <div class="stat">
+            <div class="label">Status :</div>
+            <div class="value">{{itemData.status}}</div>
+          </div>
+          <div class="stat">
+            <div class="label">Genres :</div>
+            <div class="value">
+              <span *ngFor="let genre of itemData.genres">{{ genre.name }} , </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel header="Videos">
+      <div class="grid">
+        <ng-container *ngFor="let video of moviesVideos">
+          <div class="col-12 md:col-4 lg:col-4">
+            <video-embed [key]="video.key" [site]="video.site"></video-embed>
+          </div>
+        </ng-container>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel header="Photos">
+      <div class="grid">
+        <div *ngIf="moviesImages.length != 0">
+          <ng-container *ngFor="let image of moviesImages?.backdrops">
+            <div class="col-12 md:col-4 lg:col-4">
+              <img [src]="imgSrc + image?.file_path" alt="">
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <h2 *ngIf="moviesImages.length == 0" class = 'noData'>there is no images</h2>
+    </p-tabPanel>
+</p-tabView>
+<div>
+  <p-carousel [numVisible]="5" *ngIf="moviesCredits" [value]="moviesCredits.cast">
+    <ng-template pTemplate="header">
+      <h5>{{itemData.title}}{{itemData.name}} Actors</h5>
+    </ng-template>
+    <ng-template let-actor pTemplate="item">
+      <div class="actor">
+        <img *ngIf="actor.profile_path != null" [src]="imgSrc + actor.profile_path" alt="">
+        <img *ngIf="actor.profile_path == null" src="assets/images/1.jpg" alt="">
+        <div class = 'name'>
+          {{actor.name}}
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
+<div>
+  <p-carousel [numVisible]="5" *ngIf="similarMovies" [value]="similarMovies.results">
+    <ng-template pTemplate="header">
+      <h5>{{itemData.title}}{{itemData.name}} Similar Movies</h5>
+    </ng-template>
+    <ng-template let-movie pTemplate="item">
+      <div class="actor">
+        <app-item [itemData]='movie'></app-item>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
+</ng-container>

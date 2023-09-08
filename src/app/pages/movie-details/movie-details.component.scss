@@ -1,0 +1,88 @@
+@import '../../../styles/colors';
+:host ::ng-deep
+{
+  .p-tabview-nav
+  {
+    justify-content: center !important;
+  }
+  li
+  {
+    width:200px;
+    a
+    {
+      justify-content: center;
+    }
+  }
+  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link
+  {
+    box-shadow: none;
+    outline: 0;
+    background:#4d4d4d94;
+    border-radius: 0;
+  }
+  .p-carousel-indicators
+  {
+    margin:20px 0;
+    li
+    {
+      width:auto;
+    }
+  }
+}
+img
+{
+  width:100%;
+  height: 400px;
+}
+.overview
+{
+  width: 800px;
+  text-align: justify;
+  line-height:25px;
+  font-size: 17px;
+  text-transform: capitalize;
+}
+.stat
+{
+  display: flex;
+  margin-bottom: 15px;
+  .label
+  {
+    width: 150px;
+    font-weight: bold;
+  }
+  .value
+  {
+    color:$primaryColor;
+  }
+}
+.noData
+{
+  text-align: center;
+  text-transform: capitalize;
+  font-style: italic;
+  font-weight: bold;
+  color:$primaryColor;
+  font-size: 20px;
+}
+.actor
+{
+  img
+  {
+    width:100% !important;
+  }
+  .name
+  {
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 17px;
+    padding:10px 0;
+  }
+}
+h5
+{
+  text-transform: capitalize;
+  font-size:30px;
+  margin:20px 46px;
+  color:$primaryColor;
+}
